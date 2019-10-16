@@ -1,0 +1,106 @@
+<resources>
+    <string name="ep_card_form_title">Enter Card Details</string>
+
+    <string name="ep_cc_holder_name">Name on Card</string>
+    <string name="ep_cc_number">Card Number</string>
+    <string name="ep_cc_month">Month</string>
+    <string name="ep_cc_year">Year</string>
+    <string name="ep_cc_cvc">CVC</string>
+
+    <string name="ep_cc_error_expiration_date_missing">Please enter the expiration date.</string>
+    <string name="ep_cc_error_name_missing">Please enter the name on the card.</string>
+    <string name="ep_cc_error_number_missing">Please enter the card number.</string>
+    <string name="ep_cc_error_number_invalid">The card number is not valid.</string>
+    <string name="ep_cc_error_number_short">The card number is too short.</string>
+    <string name="ep_cc_error_number_long">The card number is too long.</string>
+    <string name="ep_cc_error_month_missing">Please enter the expiry month.</string>
+    <string name="ep_cc_error_month_invalid">The expiry month is not valid.</string>
+    <string name="ep_cc_error_name_invalid">The card name is not valid.</string>
+    <string name="ep_cc_error_year_missing">Please enter the expiry year.</string>
+    <string name="ep_cc_error_year_invalid">The expiry year is not valid.</string>
+    <string name="ep_cc_error_date_invalid">The expiration date is not valid.</string>
+    <string name="ep_cc_error_year_short">The expiry year is too short, please enter 4 digits.</string>
+    <string name="ep_cc_error_expired">The expiry date has passed.</string>
+    <string name="ep_cc_error_cvc_missing">Please enter the CVC.</string>
+    <string name="ep_cc_error_cvc_invalid">The security code is not valid, should be 3 digits.</string>
+    <string name="ep_cc_error_cvc_invalid_american_express">The security code is not valid, should be 4 digits for American Express.</string>
+    <string name="ep_btn_ok">OK</string>
+    <string name="ep_field_name">Name</string>
+    <string name="ep_field_number">Number</string>
+    <string name="ep_field_cvc">CVC</string>
+    <string name="ep_field_exp_month">ExpMonth</string>
+    <string name="ep_field_exp_year">ExpYear</string>
+    <string name="ep_err_network_failure">Network connection failure. Check your connection and try again.</string>
+    <string name="ep_err_ssl_exception">SSL connection failure.</string>
+    <string name="ep_err_unknown">Unknown exception.</string>
+    <string name="ep_err_web_auth">3Ds authentication failed</string>
+    <string name="ep_err_web_auth_canceled">Web Auth canceled</string>
+    <string name="ep_err_unknown_account_id_or_payment_state">Unknown apiUsername or payment state</string>
+    <string name="ep_setting_internet">Settings</string>
+    <string name="ep_accept">Accept</string>
+    <string name="ep_alert_yes_button">Yes</string>
+    <string name="ep_alert_ok_button">OK</string>
+    <string name="ep_alert_no_button">No</string>
+    <string name="ep_action_back">Back</string>
+    <string name="ep_alert_yes_all">Yes to all</string>
+    <string name="ep_please_enter_host">Please enter host</string>
+    <string name="ep_please_enter_api_username">Please enter api_username</string>
+    <string name="ep_please_enter_api_secret">Please enter api secret</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ep_alternative_payment">Alternative Payment</string>
+    <string name="ep_expiration_date">Expiration Date</string>
+    <string name="ep_pay">Pay %s</string>
+
+    <string-array name="ep_cc_month_values" translatable="false">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="ep_cc_month_names">
+        <item>01 - Jan</item>
+        <item>02 - Feb</item>
+        <item>03 - March</item>
+        <item>04 - April</item>
+        <item>05 - May</item>
+        <item>06 - June</item>
+        <item>07 - July</item>
+        <item>08 - Aug</item>
+        <item>09 - Sep</item>
+        <item>10 - Oct</item>
+        <item>11 - Nov</item>
+        <item>12 - Dec</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="ep_cc_year_values" translatable="false">
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+        <item>2026</item>
+        <item>2027</item>
+        <item>2028</item>
+        <item>2029</item>
+        <item>2030</item>
+    </string-array>
+
+</resources>

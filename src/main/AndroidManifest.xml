@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    package="com.everypay.sdk">
+
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/ep_AppTheme">
+        <activity
+            android:name=".activity.PaymentActivity"
+            android:theme="@style/ep_Theme_AppCompat_NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".activity.CardFormActivity"
+            android:theme="@style/ep_FloatingDialogTheme" />
+        <activity
+            android:name=".PaymentBrowserActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+    </application>
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>
