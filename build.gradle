@@ -19,13 +19,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField('String', 'MERCHANT_URL', '"https://mwt-demo.every-pay.com/merchant_settings/general/"')
         }
         debug {
             debuggable true
             minifyEnabled false
-            buildConfigField('String', 'MERCHANT_URL', '"https://portal.every-pay.eu/merchant_settings/general/"')
-        }
+       }
     }
 
     lintOptions {
@@ -33,18 +31,6 @@ android {
         warning 'GradleCompatible'
     }
 
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -94,20 +80,20 @@ ext {
 
     libraryDescription = 'EveryPay Android SDK'
 
-    siteUrl = 'https://github.com/UnifiedPaymentSolutions/everypay-android'
-    gitUrl = 'https://github.com/UnifiedPaymentSolutions/everypay-android.git'
+    siteUrl = 'https://github.com/UnifiedPaymentSolutions/everypay-android3'
+    gitUrl = 'https://github.com/UnifiedPaymentSolutions/everypay-android3.git'
 
     libraryVersion = project.version
     artifactDir = "$buildDir/outputs/aar/android-sdk-release.aar"
 
-    developerId = 'olevabel'
-    developerName = 'Olev Abel'
-    developerEmail = 'olev.abel@lab.mobi'
+    developerId = 'EveryPay'
+    developerName = 'EveryPay'
+    developerEmail = 'support@every-pay.com'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 
-    apply from: 'installv1.gradle'
-    apply from: 'bintrayv1.gradle'
+    apply from: 'installv3.gradle'
+    apply from: 'bintrayv3.gradle'
 }
