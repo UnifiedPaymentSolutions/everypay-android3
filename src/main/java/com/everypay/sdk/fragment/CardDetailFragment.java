@@ -26,7 +26,6 @@ import com.everypay.sdk.data.network.requestdata.CcDetails;
 import com.everypay.sdk.data.network.responsedata.CardDetailResponse;
 import com.everypay.sdk.data.network.task.GetCardDetailTask;
 import com.everypay.sdk.data.network.task.base.BaseCallback;
-import com.everypay.sdk.model.Card;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Random;
@@ -52,6 +51,7 @@ public class CardDetailFragment extends Fragment {
 
     private static final int CARD_CVC_TOTAL_SYMBOLS = 3;
     private static final String WAITING_FOR_3DS = "waiting_for_3ds_response";
+    private static final String WAITING_FOR_BAV = "waiting_for_bav";
     public static final String DATA = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     EditText mEtCardNumber;
@@ -195,19 +195,22 @@ public class CardDetailFragment extends Fragment {
                         LogUtils.i(status);
                         Activity activity = getActivity();
                         if (activity instanceof PaymentActivity) {
-                            if (StringUtils.isEmpty(status) || status.equalsIgnoreCase("failed")) {
+                            if (StringUtils.isEmpty(status))
+                                return;
+                            if (status.equalsIgnoreCase("failed")) {
+                                // failure -> return to result screen
                                 Intent intent = new Intent();
                                 activity.setResult(EveryPay.RESULT_ERROR, intent);
                                 activity.finish();
-                                return;
-                            }
-                            if (status.equalsIgnoreCase(WAITING_FOR_3DS)) {
-                                ((PaymentActivity) activity).popFragment();
-                                ((PaymentActivity) activity).replaceFragment(AlternativePaymentFragment.newInstance(mLink));
-                            } else if (status.equalsIgnoreCase("settled") || status.equalsIgnoreCase("authorised")){
+                            } else if (status.equalsIgnoreCase("settled") || status.equalsIgnoreCase("completed") || status.equalsIgnoreCase("authorised")) {
+                                // success -> return to result screen
                                 Intent intent = new Intent();
                                 activity.setResult(EveryPay.RESULT_OK, intent);
                                 activity.finish();
+                            } else {
+                                // navigate to webview
+                                ((PaymentActivity) activity).popFragment();
+                                ((PaymentActivity) activity).replaceFragment(AlternativePaymentFragment.newInstance(mLink));
                             }
 
                         }
@@ -258,11 +261,11 @@ public class CardDetailFragment extends Fragment {
 
         try {
             int month = Integer.parseInt(ccDetails.getMonth(), 10);
-            if (month < Card.MONTH_MIN_VALUE) {
+            if (month < 1) {
                 ToastUtils.showShort(R.string.ep_cc_error_month_invalid);
                 return false;
             }
-            if (month > Card.MONTH_MAX_VALUE) {
+            if (month > 12) {
                 ToastUtils.showShort(R.string.ep_cc_error_month_invalid);
                 return false;
             }

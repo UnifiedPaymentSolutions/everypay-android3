@@ -48,7 +48,6 @@
     <string name="ep_please_enter_api_secret">Please enter api secret</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ep_alternative_payment">Alternative Payment</string>
     <string name="ep_expiration_date">Expiration Date</string>
     <string name="ep_pay">Pay %s</string>

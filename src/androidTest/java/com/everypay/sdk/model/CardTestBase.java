@@ -9,7 +9,6 @@ import android.test.mock.MockResources;
 import android.util.Pair;
 
 import com.everypay.sdk.R;
-import com.everypay.sdk.util.Reflect;
 
 public class CardTestBase extends AndroidTestCase {
 

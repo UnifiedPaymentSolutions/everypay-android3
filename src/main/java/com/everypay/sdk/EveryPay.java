@@ -8,16 +8,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.everypay.sdk.activity.PaymentActivity;
 import com.everypay.sdk.data.network.AppService;
-import com.everypay.sdk.inter.ServiceListener;
-import com.everypay.sdk.model.Card;
-import com.everypay.sdk.steps.MerchantParamsStep;
-import com.everypay.sdk.steps.MerchantPaymentStep;
-import com.everypay.sdk.util.Log;
 
-import java.util.WeakHashMap;
 
 
 /**
@@ -42,7 +37,6 @@ public class EveryPay {
     public static final int RESULT_OK = 111;
     public static final int RESULT_ERROR = -1;
 
-    private static final Log log = Log.getInstance(EveryPay.class);
 
     private final Object initEPLock = new Object();
     private Activity mActivity;
@@ -75,20 +69,6 @@ public class EveryPay {
         this.currency = currency;
     }
 
-    public void init(String everypayUrl, String merchantUrl, String apiVersion, String everyPayHost) {
-        init(everypayUrl, merchantUrl, apiVersion, everyPayHost, new MerchantParamsStep(), new MerchantPaymentStep());
-    }
-
-    public void init(String everypayUrl, String merchantUrl, String apiVersion, String everyPayHost, MerchantParamsStep merchantParamsStep, MerchantPaymentStep merchantPaymentStep) {
-        this.everypayUrl = everypayUrl;
-        this.merchantUrl = merchantUrl;
-        this.apiVersion = apiVersion;
-        this.everyPayHost = everyPayHost;
-        this.merchantParamsStep = merchantParamsStep;
-        this.merchantPaymentStep = merchantPaymentStep;
-        this.isInitDone = true;
-    }
-
     private EveryPay(Context appContext) {
         this.context = appContext.getApplicationContext();
     }
@@ -108,21 +88,7 @@ public class EveryPay {
     private String currency;
     private String merchantUrl;
     private String apiVersion;
-    private MerchantParamsStep merchantParamsStep;
-    private EveryPaySession session;
-    private MerchantPaymentStep merchantPaymentStep;
     private boolean isInitDone;
-    private final WeakHashMap<String, ServiceListener> listeners = new WeakHashMap<>();
-
-    private EveryPay(Context appContext, String everypayUrl, String merchantUrl, MerchantParamsStep merchantParamsStep, MerchantPaymentStep merchantPaymentStep, String apiVersion, String everyPayHost) {
-        this.context = appContext;
-        this.everypayUrl = everypayUrl;
-        this.merchantUrl = merchantUrl;
-        this.merchantParamsStep = merchantParamsStep;
-        this.merchantPaymentStep = merchantPaymentStep;
-        this.apiVersion = apiVersion;
-        this.everyPayHost = everyPayHost;
-    }
 
     public Context getContext() {
         return context;
@@ -140,32 +106,16 @@ public class EveryPay {
         return everyPayHost;
     }
 
-    public MerchantParamsStep getMerchantParamsStep() {
-        return merchantParamsStep;
-    }
-
-    public MerchantPaymentStep getMerchantPaymentStep() {
-        return merchantPaymentStep;
-    }
-
-    public void startFullPaymentFlow(String tag, Card card, EveryPayListener callback, String accountId) {
-        throwIfNoInit();
-        setListener(tag, callback);
-        Log.setLogLevel(Config.USE_DEBUG ? Log.LOG_LEVEL_DEBUG : Log.LOG_LEVEL_RELEASE);
-        session = new EveryPaySession(context, instance, card, callback, apiVersion, accountId);
-        session.startPaymentFlow();
-    }
-
     private void throwIfNoInit() {
         if (!isInitDone()) {
-            log.e("throwIfNoInit : Init not done !");
+            LogUtils.e("throwIfNoInit : Init not done !");
             throw new RuntimeException("EveryPay not initialized. Did you call EveryPay.init() first ?");
         }
     }
 
     private void throwIfNoInit(String param) {
         if (!isInitDone()) {
-            log.e("throwIfNoInit : Init not done ! Missing param: " + param);
+            LogUtils.e("throwIfNoInit : Init not done ! Missing param: " + param);
 //            throw new RuntimeException("EveryPay not initialized. Did you call EveryPay.init() first ?  ! Missing param: " + param);
         }
     }
@@ -173,60 +123,6 @@ public class EveryPay {
     private boolean isInitDone() {
         synchronized (initEPLock) {
             return isInitDone;
-        }
-    }
-
-    /**
-     * Overwrite or clear a listener for a specific tag.
-     * NB: For an initial listener set it when calling a specific method.
-     *
-     * @param tag      Listener tag
-     * @param listener Listener to set
-     */
-    public void setListener(final String tag, @Nullable final ServiceListener listener) {
-        log.d("setListener: " + tag + ", listener: " + listener);
-        if (TextUtils.isEmpty(tag)) {
-            return;
-        }
-        synchronized (listeners) {
-            listeners.put(tag, listener);
-        }
-    }
-
-    /**
-     * Getter for specific listener.
-     *
-     * @param tag            unique tag that listener was set with
-     * @param forgetListener if we should listen for callback or not
-     * @param type           listener type
-     * @return listener of provided type
-     */
-    public <T extends ServiceListener> T getListener(final String tag, final boolean forgetListener, @NonNull final Class<T> type) {
-        log.d("getListener: " + tag + ", forgetListener: " + forgetListener);
-        //noinspection ConstantConditions
-        if (TextUtils.isEmpty(tag) || type == null) {
-            return null;
-        }
-        synchronized (listeners) {
-            if (listeners.get(tag) != null && type.isInstance(listeners.get(tag))) {
-                //noinspection unchecked
-                return (T) (forgetListener ? listeners.remove(tag) : listeners.get(tag));
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Method to remove listener.
-     *
-     * @param tag unique tag that listeners was set with
-     */
-    public void removeListener(final String tag) {
-        if (TextUtils.isEmpty(tag)) {
-            return;
-        }
-        synchronized (listeners) {
-            listeners.remove(tag);
         }
     }
 

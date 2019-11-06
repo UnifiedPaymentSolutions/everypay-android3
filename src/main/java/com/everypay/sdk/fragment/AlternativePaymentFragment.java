@@ -3,7 +3,6 @@ package com.everypay.sdk.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -123,12 +121,16 @@ public class AlternativePaymentFragment extends Fragment {
                     LogUtils.i(status);
                     Activity activity = getActivity();
                     if (activity  instanceof PaymentActivity) {
-                        if (StringUtils.isEmpty(status) || status.equalsIgnoreCase("failed")) {
+                        if (StringUtils.isEmpty(status))
+                            return;
+                        if (status.equalsIgnoreCase("failed")) {
+                            // failure -> return to result screen
                             Intent intent = new Intent();
                             Objects.requireNonNull(getActivity()).setResult(EveryPay.RESULT_ERROR, intent);
                             getActivity().finish();
                         }
-                        if (status.equalsIgnoreCase("settled") || status.equalsIgnoreCase("completed")) {
+                        if (status.equalsIgnoreCase("settled") || status.equalsIgnoreCase("completed") || status.equalsIgnoreCase("authorized")) {
+                            // success -> return to result screen
                             Intent intent = new Intent();
                             Objects.requireNonNull(getActivity()).setResult(EveryPay.RESULT_OK, intent);
                             getActivity().finish();
