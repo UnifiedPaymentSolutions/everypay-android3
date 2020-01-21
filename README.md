@@ -1,11 +1,11 @@
 # EveryPay Android SDK
-* [Overview](https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp#overview)
-* [Integrating the SDK](https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp#integrating_the_sdk)
-  * [Add the SDK to your Android Studio project](https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp#add-the-sdk-to-your-android-studio-project)
-  * [Configure the SDK parameters](https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp#configure-the-sdk-parameters)
-  * [How to integrate Payment Flow](https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp#how_to_integrate_payment_flow)
-* [Required Android permissions](https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp#required-android-permissions)
-* [Theming the card input form](https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp/blob/master/README.md#theming-the-card-input-form)
+* [Overview](https://github.com/UnifiedPaymentSolutions/everypay-android3#overview)
+* [Integrating the SDK](https://github.com/UnifiedPaymentSolutions/everypay-android3#integrating_the_sdk)
+  * [Add the SDK to your Android Studio project](https://github.com/UnifiedPaymentSolutions/everypay-android3#add-the-sdk-to-your-android-studio-project)
+  * [Configure the SDK parameters](https://github.com/UnifiedPaymentSolutions/everypay-android3#configure-the-sdk-parameters)
+  * [How to integrate Payment Flow](https://github.com/UnifiedPaymentSolutions/everypay-android3#how_to_integrate_payment_flow)
+* [Required Android permissions](https://github.com/UnifiedPaymentSolutions/everypay-android3#required-android-permissions)
+* [Theming the card input form](https://github.com/UnifiedPaymentSolutions/everypay-android3/blob/master/README.md#theming-the-card-input-form)
 
 ## Overview
  EveryPay SDK has two payment flows:
@@ -100,7 +100,7 @@ The SDK requires `<uses-permission android:name="android.permission.INTERNET" />
 
 To override the text, color and styles used in the card input form, define resources matching the identifiers in your `colors.xml`, `strings.xml` and `styles.xml` files. The EveryPay SDK resources start with the `ep_` prefix.
 
-For an example, see https://github.com/UnifiedPaymentSolutions/everypay-android3-testapp/blob/master/app/src/main/res/values/strings.xml
+For an example, see https://github.com/UnifiedPaymentSolutions/everypay-android3/blob/master/app/src/main/res/values/strings.xml
 
 For more substantial theming, overriding the `layout/ep_fragment_card_detail.xml` with your own layout is also a possibility.
 
