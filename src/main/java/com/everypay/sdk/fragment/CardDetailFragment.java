@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.everypay.sdk.data.network.requestdata.CcDetails;
 import com.everypay.sdk.data.network.responsedata.CardDetailResponse;
 import com.everypay.sdk.data.network.task.GetCardDetailTask;
 import com.everypay.sdk.data.network.task.base.BaseCallback;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Random;
@@ -37,11 +39,11 @@ import okhttp3.Headers;
  */
 public class CardDetailFragment extends Fragment {
 
-    private static final int CARD_NUMBER_TOTAL_SYMBOLS = 19; // size of pattern 0000-0000-0000-0000
+    private static final int CARD_NUMBER_TOTAL_SYMBOLS = 19; // size of pattern 0000 0000 0000 0000
     private static final int CARD_NUMBER_TOTAL_DIGITS = 16; // max numbers of digits in pattern: 0000 x 4
     private static final int CARD_NUMBER_DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
     private static final int CARD_NUMBER_DIVIDER_POSITION = CARD_NUMBER_DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
-    private static final char CARD_NUMBER_DIVIDER = '-';
+    private static final char CARD_NUMBER_DIVIDER = ' ';
 
     private static final int CARD_DATE_TOTAL_SYMBOLS = 5; // size of pattern MM/YY
     private static final int CARD_DATE_TOTAL_DIGITS = 4; // max numbers of digits in pattern: MM + YY
@@ -101,7 +103,7 @@ public class CardDetailFragment extends Fragment {
 
         mBtnPay.setText(getString(R.string.ep_pay, mAmount));
 
-        mEtCardNumber.setOnFocusChangeListener((v, hasFocus) -> mEtCardNumber.setHint(hasFocus ? "XXXX-XXXX-XXXX-XXXX" : ""));
+        mEtCardNumber.setOnFocusChangeListener((v, hasFocus) -> mEtCardNumber.setHint(hasFocus ? "XXXX XXXX XXXX XXXX" : ""));
 
         mEtCardNumber.addTextChangedListener(new TextWatcher() {
 
@@ -117,8 +119,20 @@ public class CardDetailFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!isInputCorrect(s, CARD_NUMBER_TOTAL_SYMBOLS, CARD_NUMBER_DIVIDER_MODULO, CARD_NUMBER_DIVIDER)) {
-                    s.replace(0, s.length(), concatString(getDigitArray(s, CARD_NUMBER_TOTAL_DIGITS), CARD_NUMBER_DIVIDER_POSITION, CARD_NUMBER_DIVIDER));
+                // Remove spacing char
+                if (s.length() > 0 && (s.length() % 5) == 0) {
+                    final char c = s.charAt(s.length() - 1);
+                    if (CARD_NUMBER_DIVIDER == c) {
+                        s.delete(s.length() - 1, s.length());
+                    }
+                }
+                // Insert char where needed.
+                if (s.length() > 0 && (s.length() % 5) == 0) {
+                    char c = s.charAt(s.length() - 1);
+                    // Only if its a digit where there should be a space we insert a space
+                    if (Character.isDigit(c) && TextUtils.split(s.toString(), String.valueOf(CARD_NUMBER_DIVIDER)).length <= 3) {
+                        s.insert(s.length() - 1, String.valueOf(CARD_NUMBER_DIVIDER));
+                    }
                 }
             }
         });
@@ -233,6 +247,7 @@ public class CardDetailFragment extends Fragment {
 
     /**
      * validate card's components
+     *
      * @param ccDetails: Card object
      * @return: true if card is valid
      */
