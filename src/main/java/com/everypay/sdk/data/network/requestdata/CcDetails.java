@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CcDetails{
 
-	@SerializedName("number")
+	@SerializedName("cc_number")
 	private String number;
 
 	@SerializedName("cvc")
@@ -63,7 +63,7 @@ public class CcDetails{
  	public String toString(){
 		return 
 			"CcDetails{" + 
-			"number = '" + number + '\'' + 
+			"cc_number = '" + number + '\'' +
 			",cvc = '" + cvc + '\'' + 
 			",month = '" + month + '\'' + 
 			",year = '" + year + '\'' + 

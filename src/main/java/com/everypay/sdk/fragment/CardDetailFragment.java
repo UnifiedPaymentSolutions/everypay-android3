@@ -185,7 +185,7 @@ public class CardDetailFragment extends Fragment {
             request.setTimestamp(TimeUtils.getNowString(format));
             CcDetails ccDetails = new CcDetails();
             ccDetails.setHolderName(mEtNameOfCard.getText().toString().trim());
-            ccDetails.setNumber(mEtCardNumber.getText().toString().trim().replace("-", ""));
+            ccDetails.setNumber(mEtCardNumber.getText().toString().trim().replace("-", "").replace(" ", ""));
             ccDetails.setCvc(mEtCvc.getText().toString().trim());
             try {
                 String mExpirationDate = mEtExpirationDate.getText().toString().trim();
@@ -253,7 +253,7 @@ public class CardDetailFragment extends Fragment {
      */
     private boolean validateCard(CcDetails ccDetails) {
 
-        if (StringUtils.isEmpty(ccDetails.getNumber()) || ccDetails.getNumber().length() != 16) {
+        if (StringUtils.isEmpty(ccDetails.getNumber()) || ccDetails.getNumber().trim().length() != 16) {
             mEtCardNumber.requestFocus();
             ToastUtils.showShort(R.string.ep_cc_error_number_invalid);
             return false;
@@ -263,7 +263,7 @@ public class CardDetailFragment extends Fragment {
             ToastUtils.showShort(R.string.ep_cc_error_name_missing);
             return false;
         }
-        if (StringUtils.isEmpty(ccDetails.getCvc()) || ccDetails.getCvc().length() != 3) {
+        if (StringUtils.isEmpty(ccDetails.getCvc()) || ccDetails.getCvc().trim().length() != 3) {
             mEtCvc.requestFocus();
             ToastUtils.showShort(R.string.ep_cc_error_cvc_missing);
             return false;
