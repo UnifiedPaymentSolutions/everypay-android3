@@ -15,6 +15,19 @@ On Card Payment's screen, a full-screen WebView is opened and the associated pa
 2. Card Payment Flow<br/>
 APM screen presents a preconfigured Card Details form and user have to enter the information of user card to perform payment.
 
+## SDK versioning and EveryPay API version mapping
+
+EveryPay API release policy starting from v3 is to do incremental changes with major version only, such as v2, v3, v4, etc.
+
+SDK versions have `major.minor.patch` semantics:
+
+* major: corresponds to breaking changes in SDK itself (e.g. change in payment flow)
+* minor: corresponds to EveryPay API versions
+* patch: corresponds to any non-breaking changes in the SDK.
+
+Example mappings:
+
+* SDK `3.3.*` -> API `v3`
 
 ## Integrating the SDK
 
