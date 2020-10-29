@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
+def VERSION = "3.3.0"
 
 android {
     compileSdkVersion 28
@@ -11,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 4
-        versionName project.version
+        versionCode 303000
+        versionName VERSION
     }
 
     buildTypes {
@@ -34,6 +35,22 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
@@ -83,7 +100,7 @@ ext {
     siteUrl = 'https://github.com/UnifiedPaymentSolutions/everypay-android3'
     gitUrl = 'https://github.com/UnifiedPaymentSolutions/everypay-android3.git'
 
-    libraryVersion = project.version
+    libraryVersion = VERSION
     artifactDir = "$buildDir/outputs/aar/android-sdk-release.aar"
 
     developerId = 'EveryPay'
