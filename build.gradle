@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
 def VERSION = "3.3.0"
 
@@ -14,6 +15,7 @@ android {
         targetSdkVersion 28
         versionCode 303000
         versionName VERSION
+        setProperty("archivesBaseName", "android-sdk-$versionName")
     }
 
     buildTypes {
@@ -30,6 +32,7 @@ android {
     lintOptions {
         disable 'InvalidPackage'
         warning 'GradleCompatible'
+        //abortOnError false
     }
 
     compileOptions {
@@ -56,6 +59,16 @@ buildscript {
 
 ext.retrofitVersion = '2.6.1'
 ext.okHttpVersion = '4.2.0'
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 
 dependencies {
     //noinspection GradleCompatible
@@ -93,7 +106,7 @@ ext {
 
     publishedGroupId = 'com.everypay.sdk'
     libraryName = 'EveryPayAndroidSDK'
-    artifactName = 'android-sdk'
+    artifactName = "android-sdk"
 
     libraryDescription = 'EveryPay Android SDK'
 
@@ -101,7 +114,7 @@ ext {
     gitUrl = 'https://github.com/UnifiedPaymentSolutions/everypay-android3.git'
 
     libraryVersion = VERSION
-    artifactDir = "$buildDir/outputs/aar/android-sdk-release.aar"
+    artifactDir = "$buildDir/outputs/aar/android-sdk-${VERSION}-release.aar"
 
     developerId = 'EveryPay'
     developerName = 'EveryPay'
