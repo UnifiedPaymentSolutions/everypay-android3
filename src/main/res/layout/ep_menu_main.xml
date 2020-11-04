@@ -15,10 +15,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Payment"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+            android:text="EveryPay"
             android:textColor="#fff"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+             />
 
         <TextView
             android:id="@+id/tv_back"
