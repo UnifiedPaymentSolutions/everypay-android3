@@ -96,9 +96,12 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 }
 
+Properties properties = new Properties()
+properties.load( new FileInputStream("local.properties"))
+
 ext {
-    bintrayUserEnvVar = System.getenv("BINTRAY_USER") != null && !System.getenv("BINTRAY_USER").isEmpty() ? System.getenv("BINTRAY_USER") : null
-    bintrayKeyEnvVar = System.getenv("BINTRAY_API_KEY") != null && !System.getenv("BINTRAY_API_KEY").isEmpty() ? System.getenv("BINTRAY_API_KEY") : null
+    bintrayUserEnvVar = properties.getProperty("bintray.user")
+    bintrayKeyEnvVar = properties.getProperty("bintray.apikey")
     bintrayRepo = 'maven'
     bintrayName = 'android-sdk'
     userOrganization = 'everypay'
