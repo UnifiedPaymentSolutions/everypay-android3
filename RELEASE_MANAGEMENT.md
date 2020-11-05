@@ -8,7 +8,7 @@
 # Bintray Upload Steps
 
 * Read https://github.com/bintray/gradle-bintray-plugin
-* `gradle clean`
-* `gradle install`
-* `gradle bintrayUpload`
+* `./gradlew clean`
+* `./gradlew install`
+* `./gradlew bintrayUpload`
 
